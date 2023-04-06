@@ -19,7 +19,7 @@ const Task = ({ data, deleteFunc, updateFunc }) => {
           checked={data.isCompleted}
           onClick={() => updateFunc(data._id, data.isCompleted)}
         />
-        <p>{data.title}</p>
+        <p className={data.isCompleted===true?'striked':''}>{data.title}</p>
         <Button
           variant="outlined"
           startIcon={<DeleteIcon />}

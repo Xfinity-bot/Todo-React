@@ -3,7 +3,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Task from "./Task";
 
-const ListContainer = () => {
+const ListContainer = ({isupdated}) => {
+  console.log(isupdated);
   const [tasks, setTask] = useState({});
   const [updated, setUpdated] = useState(false);
   const [isLoaded, setLoaded] = useState(false);
@@ -37,7 +38,7 @@ const ListContainer = () => {
       setLoaded(true);
       console.log(res.data);
     });
-  }, [updated]);
+  }, [updated,isupdated]);
 
   if (isLoaded == false) {
     return <div>Loading</div>;

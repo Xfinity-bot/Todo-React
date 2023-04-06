@@ -1,14 +1,24 @@
-import { Paper, TextField, Button } from "@mui/material";
-import React, { forwardRef, useState } from "react";
+import { Paper, TextField, Button, Snackbar, Alert } from "@mui/material";
+import { useState } from "react";
 import axios from "axios";
 
-const AddForm = forwardRef((props, refs) => {
+const AddForm = (props) => {
+  const [open, setOpen] = useState(false);
+
+  
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  
   const [title, setTitle] = useState("");
 
   const handleValidity = (e) => {
-    //console.log(e.createdDate)
-
-    setTitle(e.target.value);
+   setTitle(e.target.value);
   };
 
   const handleAdd = (e) => {
@@ -19,6 +29,8 @@ const AddForm = forwardRef((props, refs) => {
       .post("http://localhost:8080/tasks/addTask", data)
       .then((res) => {
         console.log(res);
+        setOpen((prev)=>!prev);
+        props.updated((prev)=>!prev)
       })
       .catch((err) => {
         console.log(err);
@@ -28,6 +40,11 @@ const AddForm = forwardRef((props, refs) => {
 
   return (
     <>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+  <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+    Successfull 
+  </Alert>
+</Snackbar>
       <Paper
         sx={{
           width: "300px",
@@ -59,6 +76,6 @@ const AddForm = forwardRef((props, refs) => {
       </Paper>
     </>
   );
-});
+};
 
 export default AddForm;
