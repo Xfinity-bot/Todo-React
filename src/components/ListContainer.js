@@ -33,7 +33,7 @@ const ListContainer = ({isupdated}) => {
   };
   useEffect(() => {
     axios.get("http://localhost:8080/tasks/all").then((res) => {
-      let tempTask = res.data;
+      
       setTask(res.data);
       setLoaded(true);
       console.log(res.data);
